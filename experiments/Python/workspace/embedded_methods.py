@@ -16,7 +16,7 @@ class regularized_random_forest:
     Input:
         x_train, x_val, x_test(pd.DataFrame) : 学習/バリデーション/テストデータの説明変数
         y_train(np.array) : 学習データの目的変数
-        ntree, nodesize : RRFのパラメータ
+        ntree, nodesize, coefReg : RRFのパラメータ， 詳細は "rrf_arguments_ja.txt"
         
     Output:
         result[0] : 学習データにおける予測値
@@ -25,9 +25,10 @@ class regularized_random_forest:
         result[3] : 重要な特徴量
         result[4] : 特徴量重要度
     """
-    def __init__(self, ntree, nodesize):
+    def __init__(self, ntree, nodesize, coefReg):
         self.ntree = ntree
         self.nodesize = nodesize
+        self.coefReg = coefReg
         
     def fit_pred(self, x_train, y_train, x_val, x_test):
         r = self._set_r_params(x_train, y_train, x_val, x_test)
@@ -48,6 +49,7 @@ class regularized_random_forest:
         # RRFのパラメータ
         r.assign("NTREE", self.ntree)
         r.assign("NODESIZE", self.nodesize)
+        r.assign("COEFREG", self.coefReg)
         
         # Rモジュール(自作関数)の呼び出し
         r("source(file='regularized_random_forest.R')")
