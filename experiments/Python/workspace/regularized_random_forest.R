@@ -17,7 +17,7 @@ main <- function(){
   return(rrf_res)
 }
 
-build_rrf <- function(x_train, y_train, ntree, nodesize){
+running <- function(x_train, y_train, ntree, nodesize){
   # rrfの構築と学習
   # パラメータについては次を参照
   # https://www.rdocumentation.org/packages/RRF/versions/1.9.1/topics/RRF
