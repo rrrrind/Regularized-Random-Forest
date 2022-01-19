@@ -5,7 +5,7 @@ RUN apt update && apt -y upgrade
 #　Rのインストール
 RUN apt -y install --no-install-recommends r-base
 # Regularized Random Forestのインストールに必要
-RUN apt install gfortran
+RUN apt -y install gfortran
 # Regularized Random Forestパッケージのインストール
 RUN R -e "install.packages('RRF', dependencies = TRUE, repos='http://cran.rstudio.com/')"
 
