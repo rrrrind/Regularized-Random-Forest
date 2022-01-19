@@ -12,19 +12,19 @@ set.seed(1)
 # --------------------------------------------------------------------------
 
 main <- function(){
-  rrf <- build_rrf(X_TRAIN, Y_TRAIN, NTREE, NODESIZE)
+  rrf <- build_rrf(X_TRAIN, Y_TRAIN, NTREE, NODESIZE, COEFREG)
   rrf_res <- get_rrf_res(rrf, X_VAL, X_TEST)
   return(rrf_res)
 }
 
-build_rrf <- function(x_train, y_train, ntree, nodesize){
+build_rrf <- function(x_train, y_train, ntree, nodesize, coefReg){
   # rrfの構築と学習
   # パラメータについては次を参照
   # https://www.rdocumentation.org/packages/RRF/versions/1.9.1/topics/RRF
   rrf <- RRF(
     x= x_train, y= y_train, 
-    ntree= ntree, nodesize= nodesize, importance= TRUE,
-    do.trace= TRUE, keep.forest= TRUE, corr.bias= FALSE, flagReg= 1)
+    ntree= ntree, nodesize= nodesize, coefReg = coefReg,
+    importance= TRUE, keep.forest= TRUE, corr.bias= FALSE, flagReg= 1)
   
   # 学習済みモデルを返す
   return(rrf)
